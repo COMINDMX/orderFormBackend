@@ -2,6 +2,7 @@ import express from 'express';
 import nodemailer from 'nodemailer';
 import multer from 'multer';
 import cors from 'cors'
+import logEveryTenMinutes from './autoOn.mjs';
 
 const app = express();
 const port = 5174;
