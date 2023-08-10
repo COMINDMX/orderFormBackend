@@ -15,10 +15,15 @@ const upload = multer({ storage });
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user: 'andresft437@gmail.com',
-    pass: 'ecvzgmxiivmhmzje'
+    user: 'prosweb.comind@gmail.com',
+    pass: 'jznzlkyddiyqupth'
   }
 });
+
+
+app.get('/', (req, res) => {
+  res.send('Welcome to sendForm COMIND')
+})
 
 app.post('/send-email', upload.single('image'), async (req, res) => {
     const {
@@ -73,26 +78,16 @@ app.post('/send-email', upload.single('image'), async (req, res) => {
     const propertiesList = dataProperties
       .map(({ label, value }) => `${label}: ${value}`)
       .join('\n');
-
-      const confirmMailOptions = {
-        from: 'andresft437@gmail.com',
-        to: email, // Correo del cliente
-        subject: 'Confirmación de pedido COMIND',
-        text: 'Gracias por realizar tu pedido. Pronto recibiras información acerca del estatus de tu pedido.',
-      };    
   
       const notificationOptions = {
-        from: 'andresft437@gmail.com',
-        to: 'auxiliarsistemas.comind@gmail.com',
+        from: 'prosweb.comind@gmail.com',
+        to: 'info-web@comind.mx',
         subject: 'Nuevo pedido de mangueras desde el sitio web',
         text: `Nombre: ${name}\nEmail: ${email}\n\nDetalles de pedido:\n${propertiesList}`,
         attachments: attachments
       };
 
       try {
-        // Envío del correo de confirmación
-        await transporter.sendMail(confirmMailOptions);
-    
         // Envío del correo de notificación
         await transporter.sendMail(notificationOptions);
     
